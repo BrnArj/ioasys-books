@@ -1,0 +1,27 @@
+.cardContent {
+  padding: 0 !important;
+  max-height: 118.53px;
+  margin-left: 16px;
+  width: 134.47px;
+  pointer-events: none;
+}
+.publisher {
+  width: '134.47px';
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.css-1v2lvtn-MuiPaginationItem-root {
+  display: none;
+}
+
+.closed {
+  display: none;
+}
+
+.opened {
+  display: flex;
+}
