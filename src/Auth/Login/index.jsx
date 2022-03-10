@@ -17,7 +17,6 @@ function Login() {
       }
     });
   };
-  console.log('!!!!', data);
 
   return (
     <MainDiv>
