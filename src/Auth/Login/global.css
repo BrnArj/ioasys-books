@@ -1,0 +1,11 @@
+.muiGrid-container {
+  width: 368px;
+  margin-left: 115px;
+}
+
+@media (max-width: 1279px) {
+  .muiGrid-container {
+    margin-left: 0 !important;
+    padding-right: 10px;
+  }
+}

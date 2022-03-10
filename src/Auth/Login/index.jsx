@@ -4,7 +4,7 @@ import { TextField, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { MyAPI } from '../../middleware/API';
 import { MainDiv, Button, Label } from './style';
-
+import './global.css';
 function Login() {
   const [loginMethod, setLoginMethod] = useState();
   const [data, setData] = useState({ email: '', password: '' });
@@ -21,7 +21,12 @@ function Login() {
 
   return (
     <MainDiv>
-      <Grid container spacing={2} style={{ width: 368, marginLeft: 115 }}>
+      <Grid
+        container
+        spacing={2}
+        className="muiGrid-container"
+        style={{ width: 368, marginLeft: 115 }}
+      >
         <Grid item lg={4} style={{ marginBottom: 50 }}>
           <img src="/images/logo.svg" alt="" />
         </Grid>

@@ -8,6 +8,9 @@ export const MainDiv = styled.div`
   justify-content: left;
   align-items: center;
   background-size: cover;
+  @media (max-width: 1279px) {
+    background-image: url('/images/mobilebg.png');
+  }
 `;
 export const Button = styled.button`
   width: 120px;

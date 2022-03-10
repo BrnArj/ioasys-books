@@ -25,3 +25,35 @@
 .opened {
   display: flex;
 }
+
+.labelScrollbar {
+  max-height: 500;
+  background: #ab2680;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 1136px;
+}
+
+@media (max-width: 1279px) {
+  .header {
+    width: auto;
+  }
+  .box {
+    min-width: 2px !important;
+    width: 288px;
+    height: 970px;
+  }
+}
+
+.box {
+  display: 'flex';
+  align-items: center;
+  justify-content: center;
+  min-width: 768px;
+  height: 608;
+  background-color: #ffffff;
+  outline: none;
+}

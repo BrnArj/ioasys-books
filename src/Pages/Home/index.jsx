@@ -15,15 +15,24 @@ import {
   Label,
   SupportDiv,
   MyCard,
-  InfosWrap,
+  AllInfosWrapper,
   BookTitle,
   ModalWrapper,
   DivImage,
-  InfosDiv,
+  DetailsDiv,
   BookAuthors,
+  BookInfosDiv,
+  InfosTypeLabel,
+  InfosLabel,
+  AllBookDetailsWrapper,
+  HeaderDiv,
+  WelcomeHeaderDiv,
+  NameLabel,
+  WelcomeLabel,
+  LogoutButton,
 } from './style';
 import { MyAPI } from '../../middleware/API';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [open, setOpen] = React.useState(true);
@@ -41,6 +50,13 @@ function Home() {
     setPage(value);
   };
   const LoginData = JSON.parse(localStorage.getItem('LoginData'));
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+    localStorage.clear();
+  };
 
   const AuthStr = 'Bearer '.concat(LoginData.headers.authorization);
   useEffect(() => {
@@ -66,15 +82,27 @@ function Home() {
   console.log(clickedId);
   return (
     <MainDiv>
-      <InfosWrap>
-        <Grid container spacing={2}>
-          <Grid item lg={'auto'}>
-            <img src="/images/logo2.svg" alt="" />
-          </Grid>
-          <Grid item lg={'auto'}>
-            <Label>Books</Label>
-          </Grid>
-        </Grid>
+      <AllInfosWrapper>
+        <WelcomeHeaderDiv
+          style={{
+            fontSize: 12,
+            fontWeight: 500,
+            fontFamily: 'Heebo, sans-serif',
+            color: '#333333',
+          }}
+        >
+          <HeaderDiv>
+            <img src="/images/logo2.svg" alt="logo" />
+            <Label style={{ marginLeft: 16.6 }}>Books</Label>
+          </HeaderDiv>
+          <WelcomeLabel>Bem vindo,</WelcomeLabel>
+          <NameLabel style={{ marginLeft: 3 }}>{LoginData.data.name}</NameLabel>
+          <LogoutButton
+            src="/images/logout.svg"
+            alt="button"
+            onClick={handleLogout}
+          />
+        </WelcomeHeaderDiv>
         <Grid container spacing={2} style={{ marginTop: 20 }}>
           {books &&
             books.map((item, key) => {
@@ -138,27 +166,75 @@ function Home() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                      overflow: 'scroll',
                     }}
                   >
-                    <Box
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minWidth: 768,
-                        height: 608,
-                        backgroundColor: '#FFFFFF',
-                        outline: 'none',
-                      }}
-                    >
+                    <Box className="box">
                       <ModalWrapper>
-                        <DivImage>
-                          <img src={item.imageUrl} alt="book" />
-                        </DivImage>
-                        <InfosDiv>
-                          <BookTitle>{item.title}</BookTitle>
-                          <BookAuthors>{item.authors}</BookAuthors>
-                        </InfosDiv>
+                        <DivImage src={item.imageUrl} alt="book" />
+                        <AllBookDetailsWrapper>
+                          <DetailsDiv>
+                            <BookTitle>{item.title}</BookTitle>
+                            <BookAuthors>{item.authors.join(', ')}</BookAuthors>
+                            <div>
+                              <BookInfosDiv>
+                                <InfosLabel style={{ marginBottom: 10 }}>
+                                  INFORMAÇÕES
+                                </InfosLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>Páginas</InfosLabel>
+                                <InfosTypeLabel>
+                                  {item.pageCount} páginas
+                                </InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>Editora</InfosLabel>
+                                <InfosTypeLabel>
+                                  {item.publisher}
+                                </InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>Publicação</InfosLabel>
+                                <InfosTypeLabel>
+                                  {item.published}
+                                </InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>Idioma</InfosLabel>
+                                <InfosTypeLabel>{item.language}</InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>Título Original</InfosLabel>
+                                <InfosTypeLabel>{item.title}</InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>ISBN-10</InfosLabel>
+                                <InfosTypeLabel>{item.isbn10}</InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel>ISBN-13</InfosLabel>
+                                <InfosTypeLabel>{item.isbn13}</InfosTypeLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosLabel style={{ marginTop: 32 }}>
+                                  RESENHA DA EDITORA
+                                </InfosLabel>
+                              </BookInfosDiv>
+                              <BookInfosDiv>
+                                <InfosTypeLabel
+                                  style={{
+                                    marginTop: 5,
+                                    maxHeight: 170,
+                                    textAlign: 'justify',
+                                  }}
+                                >
+                                  {item.description}
+                                </InfosTypeLabel>
+                              </BookInfosDiv>
+                            </div>
+                          </DetailsDiv>
+                        </AllBookDetailsWrapper>
                       </ModalWrapper>
                     </Box>
                   </Modal>
@@ -188,11 +264,10 @@ function Home() {
                   <PaginationItem {...item} />
                 );
               }}
-              style={{ textOverflow: 'clip' }}
             />
           </SupportDiv>
         </Grid>
-      </InfosWrap>
+      </AllInfosWrapper>
     </MainDiv>
   );
 }
