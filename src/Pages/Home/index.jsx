@@ -79,7 +79,6 @@ function Home() {
     });
   }, [clickedId]);
 
-  console.log(clickedId);
   return (
     <MainDiv>
       <AllInfosWrapper>
